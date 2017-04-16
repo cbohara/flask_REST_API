@@ -23,3 +23,6 @@ print(set_intersection)
 
 set_union = set1.union(set2)    # union will return only unique values
 print(set_union)
+
+set_difference = set1.difference(set2)  # difference is the values that are unique to each set 
+print(set_difference)
