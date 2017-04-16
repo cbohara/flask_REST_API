@@ -23,7 +23,7 @@ def ask_user():
 
 
 def main():
-    """ Get list of names from user, and then ask user if a name is in the list."""
+    """Ask user for a name and then check if that name is in a list of names."""
     ask_user()
 
 
