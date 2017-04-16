@@ -26,3 +26,46 @@ print(set_union)
 
 set_difference = set1.difference(set2)  # difference is the values that are unique to each set 
 print(set_difference)
+
+# list of dictionaries
+university = [
+    {
+        'name': 'Oxford',
+        'location': 'UK'
+    },
+    {
+        'name': 'Harvard',
+        'location': 'USA'
+    }
+]
+
+# OOP refresher
+jose = {
+    'name': 'Jose',
+    'school': 'Computing',
+    'grade': (66, 77, 88)
+}
+
+gina = {
+    'name': 'Gina',
+    'school': 'Engineering',
+    'grade': (90, 100, 80)
+}
+
+school = [jose, gina]
+
+def avg_grade(student):
+    grades = student['grade']
+    return sum(grades) / len(grades)
+
+print(avg_grade(jose))
+
+def class_avg(school):
+    total = 0
+    count = 0
+    for student in school:
+        count += 1
+        total += sum(student['grade'])
+    return total / count
+
+print(class_avg(school))
