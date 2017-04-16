@@ -3,23 +3,17 @@ import sys
 
 def who_do_you_know():
     # ask the user for a list of people they know
-    string_list = input("Please give me a list of people you know: ")
-    # split the string into a list
-    names_list = string_list.split(",")
-    # convert to ensure spaces do not cause trouble
-    names_list_no_spaces = []
-    for name in names_list:
-        names_list_no_spaces.append(name.strip())
-    # return that list
-    return names_list_no_spaces
+    names = input("Please give me a list of people you know: ")
+    # normalized to ensure spaces do not cause trouble
+    return [name.strip() for name in names.split(",")]
 
 
 def ask_user():
     # ask user for a name
-    input_name = input("Please give me a name: ")
+    input_name = (input("Please give me a name: ")).strip()
     # see if the name is in the list of people they know
     if input_name in who_do_you_know():
-        print("Hey you know " + input_name + "!")
+        print("Hey you know " + input_name.title() + "!")
 
 
 def main():
