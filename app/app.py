@@ -13,6 +13,11 @@ def home():
   return render_template('index.html')
 
 
+@app.route('/store')
+def get_stores():
+  return  jsonify(stores)
+
+
 @app.route('/store', methods=['POST'])
 def create_store():
   request_data = request.get_json()
@@ -30,11 +35,6 @@ def get_store(name):
     if store['name'] == name:
           return jsonify(store)
   return jsonify({'message': 'store not found'})
-
-
-@app.route('/store')
-def get_stores():
-  return  jsonify(stores)
 
 
 @app.route('/store/<string:name>/item', methods=['POST'])
