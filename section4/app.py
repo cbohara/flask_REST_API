@@ -29,7 +29,7 @@ class Item(Resource):
     @jwt_required()
     def post(self, name):
         if [item for item in items if item['name'] == name]:
-            return {'message': "An item with name '{}' already exists".format(name)}, 400
+            return {'message': "An item with name " + name + " already exists"}, 400
 
         data = Item.parser.parse_args()
         item = {'name': name, 'price': data['price']}
