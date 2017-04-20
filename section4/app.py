@@ -19,6 +19,7 @@ class Item(Resource):
         item = [item for item in items if item['name'] == name]
         return {'item': item}, 200 if item else 404
 
+    @jwt_required()
     def post(self, name):
         if [item for item in items if item['name'] == name]:
             return {'message': "An item with name '{}' already exists".format(name)}, 400
@@ -27,6 +28,29 @@ class Item(Resource):
         item = {'name': name, 'price': data['price']}
         items.append(item)
         return item, 201
+
+    @jwt_required()
+    def delete(self, name):
+        global items
+        items = [item for item in items if item['name'] != name]
+        return {'message': 'item deleted'}
+
+    @jwt_required()
+    def put(self, name):
+        global items
+
+        data = request.get_json()
+        item = [item for item in items if item['name'] == name]
+
+        if not item:
+            item = {'name': name, 'price': data['price']}
+            items.append(item)
+        else:
+            items = [item for item in items if item['name'] != name]
+            item = {'name': name, 'price': data['price']}
+            items.append(item)
+
+        return item
 
 
 class ItemList(Resource):
