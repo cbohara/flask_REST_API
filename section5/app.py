@@ -1,7 +1,8 @@
 from flask import Flask, request
 from flask_restful import Resource, Api, reqparse
 from flask_jwt import JWT, jwt_required
-from security import authenticate, identity
+from security import identity, authenticate
+from user import UserRegister
 
 
 app = Flask(__name__)
@@ -40,7 +41,7 @@ class Item(Resource):
     def delete(self, name):
         global items
         items = [item for item in items if item['name'] != name]
-        return {'message': 'item deleted'}
+        return {'message': 'Item deleted'}
 
     @jwt_required()
     def put(self, name):
@@ -68,6 +69,7 @@ class ItemList(Resource):
 
 api.add_resource(Item, '/item/<string:name>')
 api.add_resource(ItemList, '/items')
+api.add_resource(UserRegister, '/register')
 
 
 app.run(port=5000, debug=True)
