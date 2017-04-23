@@ -10,7 +10,7 @@ class User:
 
     @classmethod
     def find_by_username(cls, username):
-        connection = sqlite3.connect('data.db')
+        connection = sqlite3.connect("data.db")
         cursor = connection.cursor()
 
         query = "SELECT * FROM users WHERE username=?"
@@ -29,7 +29,7 @@ class User:
 
     @classmethod
     def find_by_id(cls, _id):
-        connection = sqlite3.connect('data.db')
+        connection = sqlite3.connect("data.db")
         cursor = connection.cursor()
 
         query = "SELECT * FROM users WHERE id=?"
@@ -48,7 +48,7 @@ class User:
 
 class UserRegister(Resource):
     parser = reqparse.RequestParser()
-    parser.add_argument('username',
+    parser.add_argument("username",
         type=str,
         required=True,
         help="This field cannot be left blank")
@@ -61,14 +61,14 @@ class UserRegister(Resource):
     def post(self):
         data = UserRegister.parser.parse_args()
 
-        if User.find_by_username(data['username']):
+        if User.find_by_username(data["username"]):
             return {"message": "User already exists"}, 400
 
-        connection = sqlite3.connect('data.db')
+        connection = sqlite3.connect("data.db")
         cursor = connection.cursor()
 
         query = "INSERT INTO users VALUES (NULL, ?, ?)"
-        cursor.execute(query, (data['username'], data['password']))
+        cursor.execute(query, (data["username"], data["password"]))
 
         connection.commit()
         connection.close()
