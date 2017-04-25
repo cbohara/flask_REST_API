@@ -8,7 +8,13 @@ class Item(Resource):
     parser.add_argument("price",
         type=float,
         required=True,
-        help="This field cannot be left blank"
+        help="This item needs a price"
+    )
+
+    parser.add_argument("store_id",
+        type=int,
+        required=True,
+        help="This item needs a store id"
     )
 
     @jwt_required()
@@ -24,7 +30,7 @@ class Item(Resource):
             return {"message": "An item with name '{}' already exists".format(name)}, 400
 
         data = Item.parser.parse_args()
-        item = ItemModel(name, data["price"])
+        item = ItemModel(name, data["price"], data["store_id"])
         try:
             item.save_to_db()
         except:
@@ -40,8 +46,9 @@ class Item(Resource):
 
         if item:
             item.price = data["price"]
+            item.store_id = data["store_id"]
         else:
-            item = ItemModel(name, data["price"])
+            item = ItemModel(name, **data)
 
         item.save_to_db()
 
